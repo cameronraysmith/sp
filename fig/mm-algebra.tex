@@ -1,0 +1,37 @@
+\begin{tikzpicture}
+  \path[mindmap,concept color=black,text=white]
+    node[concept] {\_\_\_\_\_ algebra}
+    [clockwise from=0]
+    child[concept color=green!50!black] {
+      node[concept] {abstract}
+      [counterclockwise from=-135]
+      child { node[concept] {classes of algebraic structures} }
+      child { node[concept] {monoids, groups, rings, fields, \ldots} }
+%      child { node[concept] {monoids} }
+%      child { node[concept] {semigroups} }
+%      child { node[concept] {groups} }
+%      child { node[concept] {rings} }
+%      child { node[concept] {fields} }
+%      child { node[concept] {all in between...} }
+    }  
+    child[concept color=blue] {
+      node[concept] {elementary}
+      [clockwise from=-30]
+      child { node[concept] {formulas} }
+      child { node[concept] {laws} }
+      child { node[concept] {cartesian geometry} }   
+    }
+    child[concept color=red] {
+     node[concept] {universal} 
+     [clockwise from=-90]
+          child { node[concept] {varieties, quasivarieties, elementary classes} }
+          child { node[concept] {classes of classes of algebraic structures} }
+    }
+    child[concept color=orange] {
+     node[concept] {categorical} 
+     [clockwise from=-30]
+	    child { node[concept] {objects} }
+  	   %child { node[concept] {morphisms} }
+  	    child { node[concept] {$(n,r)$-morphisms} }
+	};
+\end{tikzpicture}

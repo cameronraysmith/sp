@@ -1,0 +1,52 @@
+\begin{frame}
+\begin{center}
+1. Preliminaries from Measure Theory
+\end{center}
+
+\begin{itemize}
+\item Let $\Omega$ be a set.
+\item Let $\cal{F}$ be a $\sigma$-algebra of subsets of $\Omega$.
+\item Let $\textbf{P}:\cal{F} \rightarrow$ $[0, 1]$ be a measure on $\Omega$ s.t. $\textbf{P}(\Omega) =1$. 
+\end{itemize}
+
+\textbf{Definition:} $(\Omega, \cal{F}, \textbf{P})$ is called a \textbf{probability space}.\\
+
+Let $X : \Omega \rightarrow \mathbb{R}$  be an $\cal{F}$-measurable function.
+
+i.e., $X^{-1}(A) \in {\cal {F}}$ $\forall A \in \cal B$
+
+We say $X$ is a \textbf{random variable}.\\
+
+\textbf{Definition:} If X is integrable (i.e.\ $\int |X|\; d\textbf{P} < \infty$), then define 
+$$\textbf{E}(X) = \int X\; d\textbf{P}.$$
+
+An element of $\cal{F}$ is called an \textbf{event}.  
+
+Two events $A$ and $B$ are said to be \textbf{independent} if $\textbf{P}(A \cap B) = \textbf{P}(A) \textbf{P}(B)$.
+\end{frame}
+
+\begin{frame}
+\begin{center}
+2. A Gambler's Dilemma
+\end{center}
+
+\textbf{Example:} Toss a fair coin. Observe 1 of 2 outcomes: Heads or Tails.
+
+Construct the following probability space.
+
+\begin{itemize}
+\item $\Omega = \{H,T\}$
+\item ${\cal F} = \{\phi, H, T, \Omega\}$
+\end{itemize}
+
+Define a probability on $\cal{F}$:\\
+$\textbf{P}(\phi)=0$, $\textbf{P}(H) = \frac{1}{2} = \textbf{P}(T)$, $\textbf{P}(\Omega)=1$
+
+Define the rv $X$ to be outcome of toss:\\
+$X=x$ where $x \in \{H,T\}$
+
+Repeatedly toss this coin.  
+
+Let $\{X_{j}\}$, $j = 0,1,2,\dots$ be a collection of rv's s.t. $\textbf{P}(X_{j}=H) = \frac{1}{2} = \textbf{P}(X_{j}=T)$.
+
+\end{frame}
