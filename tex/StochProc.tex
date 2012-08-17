@@ -5,16 +5,74 @@ Intuitively, \textbf{stochastic processes} are $\infty$-dimensional probability 
 
 \begin{frame}
 \begin{itemize}
-\item In most applications, stochastic processes model systems that evolve randomly in time, which is likely the origin of the word \emph{process} in the name. 
+\item In most applications, stochastic processes model systems that evolve randomly in time, which is likely the origin of the word \emph{process} in the name, but stochastic process are not restricted to the temporal metaphor. Think about \emph{order} as a generalization of time.
 \item The order of this evolution can be described through the use of an index and an index set respectively $t \in T$.
 \end{itemize}
 
 \newtheorem{stpo}{Definition}
 \begin{stpo}
-Consider a random experiment with sample space $X$, a $\sigma$-algebra $\Sigma$, a base probability measure $\mu : \Sigma \rightarrow [0,1]$, and a collection of random variables $S_t$ indexed by a set $T$. A \textbf{stochastic process} is then defined by the set $\{S_t, t \in T\}$.
+Consider a random experiment with sample space $\Omega$, a $\sigma$-algebra $\Sigma$, a base probability measure $\mu : \Sigma \rightarrow [0,1]$, and a collection of random variables $X_t$ indexed by a set $T$. A \textbf{stochastic process} is then defined by the set $\{X_t, t \in T\}$.
 \end{stpo}
 \begin{itemize}
 \item This definition can be specialized to the case of discrete or continuous stochastic processes by taking the index set to be $T \in \mathbb{N}$ or $T \in \mathbb{R}_+$ respectively.
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+In the discrete case imagine indexing by natural numbers, $\mathbb{N}$, such that the process could be represented as a sequence $\{ X_n, n = 0,1,2,\ldots \}$.
+\end{frame}
+
+\begin{frame}
+How should we understand the continuous case?
+\begin{itemize}
+\item For each $\omega \in \Omega$, consider $X_t(\omega)=g_\omega(t)$. $g_\omega(t)$ can then be thought of as a function of $t$ that realizes or samples from the stochastic process.
+\item For any given $t$, $X_t$ is a random variable, thus to completely describe the stochastic process we need a description of the joint family of random variables $\{ X_t, t \in T \}$ as opposed to just the individual random variables as if they were independent.
+\item For any discrete subset of times $\{ t_1, \ldots, t_n \}$ such that $t_1 < \cdots < t_n$ and associated $\{ x_1, \ldots, x_n \}$ we must determine $	P(X_{t_1} \leq x_1, \ldots, X_{t_n} \leq x_n) $
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+
+How should we understand the continuous case?
+\begin{itemize}
+\item The \textbf{Kolmogorov extension theorem} ensures that the potentially infinite distribution $\{ X_t,t \in T \}$ where, for example $T \in \mathbb{R_+}$, i.e. $T = [0, \infty)$, can be generated from the finite-dimensional families defined by $	P(X_{t_1} \leq x_1, \ldots, X_{t_n} \leq x_n) $ \cite{Øksendal2010}
+\end{itemize}
+The necessary conditions are
+\begin{itemize}
+\item Exchangeability: for all permutations $\pi$ of $1,\ldots,n$ and $x_1,\ldots,x_n$, $P(X_{t_1} \leq x_1, \ldots, X_{t_n} \leq x_n) = P(X_{t_{\pi(1)}} \leq x_{\pi(1)}, \ldots, X_{t_{\pi(n)}} \leq x_{\pi(n)})$ 
+\item Extendability: for all $x_1,\ldots,x_n$ and $t_{n+1},\ldots,t_{n+m}$, $P(X_{t_1} \leq x_1, \ldots, X_{t_n} \leq x_n) = P(X_{t_1} \leq x_1, \ldots, X_{t_n} \leq x_n, X_{t_{n+1}} < \infty, \ldots, X_{t_{n+m}} < \infty )$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+How should we understand the continuous case?
+\begin{itemize}
+\item Given that the conditions are satisfied then there exists a probability space $(\Omega, \Sigma, \mathbb{P})$ with an associated stochastic process $X_t : T \times \Omega \rightarrow \mathbb{R}^n$ with the families $X_{t_1}, \ldots, X_{t_n}$ as finite-dimensional marginal distributions.
+\end{itemize}
+\end{frame}
+
+\subsection{Examples}
+\begin{frame}
+Markov processes
+
+\end{frame}
+
+\begin{frame}
+The Chapman-Kolmogorov equation
+
+\end{frame}
+
+\begin{frame}
+The Master equation
+
+\end{frame}
+
+\begin{frame}
+The Fokker-Planck Equation
+
+\end{frame}
+
+\begin{frame}
+Stochastic differential equations
+
+\end{frame}
