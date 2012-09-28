@@ -5,7 +5,7 @@ Intuitively, \textbf{stochastic processes} are $\infty$-dimensional probability 
 
 \begin{frame}
 \begin{itemize}
-\item In most applications, stochastic processes model systems that evolve randomly in time, which is likely the origin of the word \emph{process} in the name, but stochastic process are not restricted to the temporal metaphor. Think about \emph{order} as a generalization of time.
+\item In most applications, stochastic processes model systems that evolve randomly in time, which is likely the origin of the word \emph{process} in the name, but stochastic processes are not restricted to the temporal metaphor. Think about \emph{order} as a generalization of time.
 \item The order of this evolution can be described through the use of an index and an index set respectively $t \in T$.
 \end{itemize}
 
@@ -51,20 +51,246 @@ How should we understand the continuous case?
 \end{itemize}
 \end{frame}
 
-\subsection{Examples}
+\subsection{Gaussian noise}
+
 \begin{frame}
-Markov processes
+\frametitle{Gaussian (white) noise}
+If random variables at different points in time are mutually independent then the joint distribution is simply the product of all its marginals
+$$
+p_2(x_1,t_1;x_2,t_2)=p_1(x_1,t_1)p_1(x_2,t_2)
+$$
+\end{frame}
+
+\begin{frame}
+\frametitle{Gaussian (white) noise}
+The covariance of this distribution is
+\begin{multline}
+< (X_{t_1} - \mu_1)(X_{t_2} - \mu_2) > \\
+= \int dx_1 dx_2 \,\, (x_1 - \mu_1)(x_2 - \mu_2)p_2(x_1,t_1;x_2,t_2) = 0
+\end{multline}
+where the mean value at time $t_i$ is 
+$$
+\mu_i = < X_i > = \int dx \,\, x \, p_1(x,t_i)
+$$
+\end{frame}
+
+\begin{frame}
+\frametitle{Gaussian (white) noise}
+If $p_1(x,t)$ is independent of time such that $p_1(x,t) \equiv p_1(x)$ then the associated sequence of random variables is said to be identically and independently distributed (IID) with mean $\mu$ and variance $\sigma^2$
+$$
+X(t) \sim IID(\mu,\sigma^2)
+$$
+If $p_1(x)$ is the density of a normal distribution then this stochastic process is referred to as Gaussian noise or white noise. The $X(t)$ are then independently and normally distributed at each point in time, which we denote as
+$$
+X(t) \sim N(0,\sigma^2)
+$$
+\end{frame}
+
+\begin{frame}
+\frametitle{Gaussian (white) noise}
+If we denote Gaussian noise as $\eta(t)$ then $< \eta(t) > = 0$. The covariance function between two timepoints in the discrete and continuous cases respectively are
+\begin{eqnarray}
+< \eta(t)\eta(t') > &=& \sigma^2 \delta_{tt'},\\
+< \eta(t)\eta(t') > &=& \sigma^2 \delta(t-t').
+\end{eqnarray}
+
+The Fourier transform of the stationary two-time covariance function for a continuous-time process is
+$$
+F(\omega) = \int d \tau < \eta(t)\eta(t+\tau) > e^{i \omega \tau} = \sigma^2.
+$$
+\end{frame}
+
+\subsection{Markov processes}
+
+\begin{frame}
+\frametitle{Markov processes}
+first order Markov processes are characterized by the so-called Markov condition
+$$
+p_n(x_n,t_n | x_{n-1},t_{n-1}; \ldots ; x_1,t_1)=p_2(x_n,t_n|x_{n-1},t_{n-1}).
+$$
+
+The Markov condition means that the probability for a transition from $x_{n-1}$ to $x_n$ during the time interval from $t_{n-1}$ to $t_n$ is independent of the $x_i$ associated to timepoints prior to $t_{n-1}$.
+
+All the information that is useful for attempting to make predictions is embodied in the present.
+\end{frame}
+
+\begin{frame}
+\frametitle{Markov processes}
+The conditional probability $p_2(x,t|x',t')$ is named the transition probability. A Markov process whose transition probability depends only on the time interval is called homogeneous. If, additionally, $p_1(x,t)$ is independent of $t$, then the process is called stationary.
+
+A Markov process is uniquely determined through $p_1(x,t)$ and $p_2(x_2,t_2|x_1,t_1)$. This is a result of the fact that the Markov property ensures that all joint distributions $p_n$ for $n>2$ can be expressed in terms of $p_1$ and $p_2$ as
+\begin{multline}
+p_n(x_n,t_n;x_{n-1},t_{n-1};\ldots;x_1,t_1)\\
+= p_2(x_n,t_n|x_{n-1},t_{n-1})p_2(x_{n-1},t_{n-1}|x_{n-2},t_{n-2}) \cdots p_1(x_1,t_1).
+\end{multline}
 
 \end{frame}
 
 \begin{frame}
-The Chapman-Kolmogorov equation
+\frametitle{Markov processes}
+$m^{th}$ order Markov processes are characterized by a generalized form of the first-order Markov condition
+\begin{multline}
+p_n(x_n,t_n | x_{n-1},t_{n-1}; \ldots ; x_1,t_1)\\
+= p_{m+1}(x_n,t_n|x_{n-1},t_{n-1}, \ldots ,x_{n-m},t_{n-m}).
+\end{multline}
 
+The $m^{th}$ order Markov condition means that the probability for a transition from $x_{n-1}$ to $x_n$ during the time interval from $t_{n-1}$ to $t_n$ is independent of the $x_i$ associated to timepoints prior to $t_{n-m}$.
+
+All the information that is useful for attempting to make predictions is embodied in a history that is $m$ timesteps long.
 \end{frame}
 
 \begin{frame}
-The Master equation
+\frametitle{Markov processes}
+The \emph{hidden Markov process} is defined on a pair of random variables $(I,X)$. $I$ is taken to be a discrete random variable over some subset of natural numbers $\{1,2, \ldots ,k \} \subset \mathbb{N}$. Realizations of $X$ are in $\mathbb{R}^m$. Assuming one exists at all, there is a joint density function $p(i,x;t)$ whose marginals are denoted
+\begin{eqnarray}
+p(i;t) &=& \int d^m x \,\, p(i,x;t)\\
+p(x;t) &=& \Sigma_{i=1}^k p(i,x;t)
+\end{eqnarray}
+and whose conditional densities are denoted
+\begin{eqnarray}
+p(x;t|i;t) &=& \frac{p(i,x;t)}{p(i;t)}\\
+p(i;t|x;t) &=& \frac{p(i,x;t)}{p(x;t)}
+\end{eqnarray}
+\end{frame}
 
+\begin{frame}
+\frametitle{Markov processes}
+The dynamics of the hidden Markov process can be specified under the assumption of a Gaussian first-order Markov process. In this case we can express the transition probability, where $p(x,t|i,i',x';t')$ is a Gaussian distribution and $t > t'$, as
+$$
+p(i,x;t|i',x';t')=p(x,t|i,i',x';t')p(i;t|i',x';t').
+$$
+\end{frame}
+
+\begin{frame}
+\frametitle{Markov processes: examples}
+The Wiener process (also called Brownian motion or random walk) has transition probability
+
+$$
+p_2(x,t|x',t')=\frac{1}{\sqrt{2 \pi (t-t')}} e^{-(x-x')^2/2(t-t')},
+$$
+
+and $p_1(x,t)$ can be taken to be
+
+$$
+p_1(x,t) = \frac{1}{\sqrt{2 \pi t}} e^{-x^2/2t}.
+$$
+
+As $t \rightarrow 0$, $p_1(x,t)$ approaches a $\delta$ function and for $t \neq 0$, $p_1(x,t)$ is a Gaussian distribution with mean $0$ and variance $t$. This function is also the solution of the deterministic partial differential heat conduction equation in one dimension.
+\end{frame}
+
+\begin{frame}
+\frametitle{Markov processes: examples}
+The Poisson process (a special case of more general point processes) for the random variable $N(t)$ denoting the number of \emph{events} of some type that have occurred up to time $t$ for the discrete variable $n \subset \mathbb{N}$, $\alpha > 0$, and for $t_2 > t_1$ has transition probability 
+$$
+p_2(n_2,t_2|n_1,t_1) = 
+\begin{cases}
+\frac{[\alpha (t_2 - t_1)]^{n_2 - n_1}}{(n_2 - n_1)!} e^{-\alpha (t_2 - t_1)}, & \text{for $n_2 \geq n_1$},\\
+0 & \text{for $n_2 < n_1$},
+\end{cases}
+$$
+and probability that $n$ events have taken place in the interval $[0,t]$
+$$
+p_1(n,t) = \frac{(\alpha t)^n}{n!} e^{-\alpha t}
+$$
+A trajectory of the Poisson process $n(t)$ consists of unit jumps at random times. 
+\end{frame}
+
+\subsection{Master equation}
+\begin{frame}
+\frametitle{Master equations}
+
+The Chapman-Kolmogorov equation is a statement of the transitivity induced by the Markov property that the transition probability of any Markov process must satisfy 
+
+\begin{eqnarray*}
+p_2(x_3,t_3;x_1,t_1) &=& \int dx_2 \,\, p_3(x_3,t_3;x_2,t_2;x_1,t_1)\\
+					&=& \int dx_2 \,\, p_2(x_3,t_3|x_2,t_2)p_2(x_2,t_2|x_1,t_1)p_1(x_1,t_1)
+\end{eqnarray*}
+
+And the conditional probability is then
+$$
+p_2(x_3,t_3|x_1,t_1) = \int dx_2 \,\, p_2(x_3,t_3|x_2,t_2)p_2(x_2,t_2|x_1,t_1)
+$$
+\end{frame}
+
+\begin{frame}
+\frametitle{Master equations}
+If 
+$$
+\lim_{t \rightarrow \infty} p_1(x,t) \equiv p_{stat}(x) \neq 0
+$$
+exists, then $p_{stat}$ is named the \emph{stationary distribution}, which is achieved as t approaches $\infty$. Now, because
+$$
+p_1(x_3,t_3) = \int dx_2 \,\, p_2(x_3,t_3|x_2,t_2)p_1(x_2,t_2),
+$$
+then for the stationary distribution
+$$
+p_{stat}(x) = \int dx_2 \,\, p_2(x,t_3|x_2,t_2)p_{stat}(x_2),
+$$
+for all $t_2$ and $t_3$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Master equations}
+We may place some conditions on the infinitesimal-time behavior of the transition probabilities in order to use the Chapman-Kolmogorov equation to derive a differential equation specifying the dynamics of the density function characterizing the stochastic process.
+
+Imagine a Markov process with transition probability $p_2(x,t+\tau|x'',t)$. For small (and secretly infinitesimal) values of $\tau$ the form of this transition probability will be taken to be
+\begin{multline*}
+p_2(x,t+\tau|x'',t)\\
+= [1-a(x,t)\tau] \delta(x-x'') + \tau w (x,x'',t) + O(\tau^2)
+\end{multline*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Master equations}
+Given that the transition probability $p_2(x,t+\tau|x'',t)$ is assumed to be normalized, which means that the integral over its domain of definition is 1, then the equation 
+\begin{multline*}
+p_2(x,t+\tau|x'',t)\\
+= [1-a(x,t)\tau] \delta(x-x'') + \tau w (x,x'',t) + O(\tau^2)
+\end{multline*}
+implies that
+$$
+a(x'',t)=\int dx \,\, w(x,x'',t)
+$$
+\end{frame}
+
+\begin{frame}
+\frametitle{Master equations}
+From the Chapman-Kolmogorov equation we can derive
+\begin{eqnarray*}
+p_2(x,t+\tau|x',t') &=& \int dx'' \,\, p_2(x,t+\tau|x'',t)p_2(x'',t|x',t')\\
+&=& [1-a(x,t)\tau]p_2(x,t|x',t')\\
+& & +\tau \int dx'' \,\, w(x,x'',t)p_2(x'',t|x',t')\\
+& & +O(\tau^2)
+\end{eqnarray*}
+
+And the master equation results from taking the limit $\tau \rightarrow \infty$
+\begin{eqnarray*}
+\frac{\partial}{\partial t}p_2(x,t|x',t') &=& \int dx'' \,\, w(x,x'',t)p_2(x'',t|x',t')\\
+&-& \int dx'' \,\, w(x'',x,t)p_2(x,t|x',t')
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Master equations}
+A more intuitive form of the master equation given knowledge of the form of the initial distribution is obtained via multiplication by $p_1(x',t')$ and integration over $x'$ to obtain
+\begin{eqnarray*}
+\frac{\partial}{\partial t}p_1(x,t) &=& \int dx' \,\, w(x,x',t)p_1(x',t)\\
+&-& \int dx' \,\, w(x',x,t)p_1(x,t)
+\end{eqnarray*}
+
+If the variable $x$ is taken to be discrete $n \in \mathbb{N}$, then $p_n(t) \equiv p_1(x,t)$ and $w_{nn'}(t) \equiv w(x,x',t)$ results in
+$$
+\dot{p}_n (t) = \Sigma_{n'} [w_{nn'}(t)p_{n'}(t) - w_{n'n}(t)p_{n}(t)]
+$$
+This discrete form is perhaps the most intuitive. It says that the change in probability of finding the label $n$ at time $t$ can be described in terms of two components. The first is the number of transitions into (or creations) $n' \rightarrow n$ and the second is the number of transitions from (or annihilations) $n \rightarrow n'$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Master equations}
+$$
+\dot{p}_n (t) = \Sigma_{n'} [w_{nn'}(t)p_{n'}(t) - w_{n'n}(t)p_{n}(t)]
+$$
+This discrete state form is perhaps the most intuitive so far. It says that the change in probability of finding the label $n$ at time $t$ can be described in terms of two components. The first is the number of transitions into (or creations) $n' \rightarrow n$ and the second is the number of transitions from (or annihilations) $n \rightarrow n'$.
 \end{frame}
 
 \begin{frame}
